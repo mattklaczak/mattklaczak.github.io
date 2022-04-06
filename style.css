@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css?family=Creepster|Orbitron&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Boogaloo&display=swap');
+
+* {
+	box-sizing: border-box;
+}
+
+p {
+	font-size: 20px;
+	font-family: 'Creepster', cursive;
+	color: green;
+}
+
+#playfield {
+	/****** DON'T CHANGE THESE. *****/
+	/**/ box-sizing: content-box; /**/
+	/**/ width: 640px;            /**/
+	/**/ height: 480px;           /**/
+	/********************************/
+	/* you can change this if you want :B */
+	border: 4px solid black;
+
+	/* anything at the edges will be cut off instead of going out of the box. */
+	overflow: hidden;
+
+	/* makes the cursor a hand... for SLAPPING MOSQUITOES */
+	/*cursor: grab;
+	*/
+	cursor: url('./resources/swatter.png') 16 16, grab;
+	/* makes it possible to position child elements absolutely */
+	position: relative;
+}
+
+#headline {
+	font-family: 'Creepster', cursive;
+	color: green;
+	font-size: 20px;
+}
+
+#gameMessage {
+	/* wanna center things perfectly? do this. ;) */
+	font-family: 'Boogaloo', cursive;
+	font-size: 28px;
+	color: black;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#HS {
+    font-family: 'Orbitron', sans-serif;
+	color: brown;
+	font-size: 24px;
+}
+
+#highScores {
+	font-family: 'Orbitron', cursive;
+	flex: right;
+	color: brown;
+	font-size: 28px;
+	font-style: italic;
+}
