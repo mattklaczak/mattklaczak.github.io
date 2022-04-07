@@ -1,10 +1,10 @@
 // USERNAME: mck70
 // FULL NAME: Matthew Klaczak
 
-// this makes the browser catch a LOT more runtime errors. leave it here!
+// enables browser to catch more run-time errors than otherwise
 "use strict";
 
-// arr.removeItem(obj) finds and removes obj from arr.
+// arr.removeItem(obj) finds and removes obj from arr
 Array.prototype.removeItem = function(item) {
 	let i = this.indexOf(item);
 
@@ -79,9 +79,9 @@ function GameVariables(round, left, misses, score) {
 }
 
 // the ladybug object. these are beneficial to the player and provide the player points if they
-// and detact points if they are killed
-// this is very simple to mosquito object and if i had more time I would have probably tried to
-// utilize a singular insect class
+// survive to edge of screen bit detract points if they are killed
+// this is a very simple to mosquito object
+// moving further, would utilize a singular Insect class
 function LadyBug(initialA, initialB, vecA, vecB) {
     this._a = initialA
     this._b = initialB
@@ -96,7 +96,7 @@ function LadyBug(initialA, initialB, vecA, vecB) {
     this.pic.style.top = initialB + 'px'
     this.pic.ladybug = this
 
-    // the code that is executed when the mouse is clicked
+    // executed when the mouse is clicked
     this.pic.onmousedown = function(event) {
         splatLBSound.play() // sound effect
         var sa = document.createElement('img')
@@ -129,7 +129,7 @@ function countLadybugs() {
     arrayOfLadyBugs = []
 }
 
-// Mosquito object. mostly similar to ladybug
+// Mosquito object. Quite similar to ladybug
 function Mosquito(initialX, initialY, vecX, vecY) {
     this._x = initialX
     this._y = initialY
@@ -187,9 +187,9 @@ function missedMosquito() {
 }
 // -------------------------------------- ONLOAD -----------------------------------------------
 window.onload = function() {
-	// here is where you put setup code.
+	// initial setup before game loop starts
     getLocalStorage()
-	// this way, we can write gameMessage.innerHTML or whatever in your code.
+	// writes gameMessage.innerHTML in code.
 	gameMessage = document.getElementById('gameMessage')
 
     gameMessage.addEventListener('click', (event) => {
@@ -200,10 +200,10 @@ window.onload = function() {
 
 };
 // -------------------------------------- GAME CODE -----------------------------------------------
-// initial starting game code - based off Jarett's pseudocode, with permission - Thanks man!
+// initial starting game code
 function startGame() {
     gameCompleted = false // game is in progress
-    marioPaint.play()
+    marioPaint.play() // game music
     numLBSquashed = 0
     numLBSurvived = 0
     refreshScoreboard()
@@ -211,7 +211,7 @@ function startGame() {
     requestAnimationFrame(gameLoop);
 }
 // -------------------------------------- GAME LOOP -----------------------------------------------
-// main game loop - based off Jarett's pseudocode, with permission - Thanks man!
+// main game loop
 function gameLoop() {
     // iterate over array of mosquitos
     for(var m of arrayOfMosquitos) {
@@ -243,7 +243,7 @@ function gameLoop() {
     
 }
 
-// begin spawning mosquitos/ladybugs - based off Jarett's pseudocode, with permission - Thanks man!
+// begin spawning mosquitos/ladybugs
 function startSpawning() {
     
     paused = false // resets pause - we want to start spawning again now
@@ -256,7 +256,7 @@ function spawnLadyBug() {
     arrayOfLadyBugs.push(new LadyBug(a, b, va, vb));
 }
 
-// determines location and spawns - based off Jarett's pseudocode, with permission - Thanks man!
+// determines location and spawns
 function spawnMosquito() {
     let [x, y, vx, vy] = pickPointAndVector()
     arrayOfMosquitos.push(new Mosquito(x, y, vx, vy));
@@ -269,7 +269,7 @@ function spawnMosquito() {
     }
 }
 
-// this is mostly a HTML refresher function. it updates the HTML with all the game variable values
+// update/refresh HTML with all the game variable values
 function refreshScoreboard() {
     var s = document.getElementById('scoreDisplay');
     s.innerHTML = gameVars.score
@@ -374,23 +374,20 @@ function getLocalStorage() {
 // coordinates of a point off the edge of the screen on that side.
 function randomPointOnSide(side) {
 	switch(side) {
-		/* top    */ case 0: return [getRandomInt(0, SCREEN_W - IMG_W), -IMG_H];
-		/* right  */ case 1: return [SCREEN_W, getRandomInt(0, SCREEN_H - IMG_H)];
-		/* bottom */ case 2: return [getRandomInt(0, SCREEN_W - IMG_W), SCREEN_H];
-		/* left   */ case 3: return [-IMG_W, getRandomInt(0, SCREEN_H - IMG_H)];
+		case 0: return [getRandomInt(0, SCREEN_W - IMG_W), -IMG_H]; // top
+		case 1: return [SCREEN_W, getRandomInt(0, SCREEN_H - IMG_H)]; // right
+		case 2: return [getRandomInt(0, SCREEN_W - IMG_W), SCREEN_H]; // bottom
+		case 3: return [-IMG_W, getRandomInt(0, SCREEN_H - IMG_H)]; // left
 	}
 }
 
-// returns a 4-item array containing the x, y, x direction, and y direction of a mosquito.
-// use it like:
-// let [x, y, vx, vy] = pickPointAndVector()
-// then you can multiply vx and vy by some number to change the speed.
+// returns a 4-item array containing the x, y, x direction, and y direction of a mosquito
 function pickPointAndVector() {
-	let side = getRandomInt(0, 4);                    // pick a side...
-	let [x, y] = randomPointOnSide(side);             // pick where to place it...
-	let [tx, ty] = randomPointOnSide((side + 2) % 4); // pick a point on the opposite side...
-	let [dx, dy] = [tx - x, ty - y];                  // find the vector to that other point...
-	let mag = Math.hypot(dx, dy);                     // and normalize it.
+	let side = getRandomInt(0, 4);                    // pick a side
+	let [x, y] = randomPointOnSide(side);             // pick where to place it
+	let [tx, ty] = randomPointOnSide((side + 2) % 4); // pick a point on the opposite side
+	let [dx, dy] = [tx - x, ty - y];                  // find the vector to that other point
+	let mag = Math.hypot(dx, dy);                     // normalize it
 	let [vx, vy] = [(dx / mag), (dy / mag)];
 	return [x, y, vx, vy];
 }

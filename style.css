@@ -12,18 +12,17 @@ p {
 }
 
 #playfield {
-	/****** DON'T CHANGE THESE. *****/
-	/**/ box-sizing: content-box; /**/
-	/**/ width: 640px;            /**/
-	/**/ height: 480px;           /**/
-	/********************************/
-	/* you can change this if you want :B */
+
+	box-sizing: content-box;
+	width: 640px;
+	height: 480px;           
+
 	border: 4px solid black;
 
-	/* anything at the edges will be cut off instead of going out of the box. */
+	/* makes sure objects don't move beyond edge of box */
 	overflow: hidden;
 
-	/* makes the cursor a hand... for SLAPPING MOSQUITOES */
+	/* makes the cursor a hand */
 	/*cursor: grab;
 	*/
 	cursor: url('./resources/swatter.png') 16 16, grab;
@@ -38,13 +37,13 @@ p {
 }
 
 #gameMessage {
-	/* wanna center things perfectly? do this. ;) */
 	font-family: 'Boogaloo', cursive;
 	font-size: 28px;
 	color: black;
 	width: 100%;
 	height: 100%;
 	display: flex;
+	/* center everything */
 	align-items: center;
 	justify-content: center;
 }
